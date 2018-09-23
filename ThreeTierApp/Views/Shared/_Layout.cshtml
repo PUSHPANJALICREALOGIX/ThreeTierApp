@@ -6,10 +6,10 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">  
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -17,15 +17,74 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @*@Html.ActionLink("Application name", "Tabbing", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+                <a href="javascript:void(0);" class="navbar-brand">Application name</a>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                <ul class="list-unstyled list-inline pull-right">
+                    <li><a href="#">News</a></li>
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" href="javascript:void(0);"><i class="fa fa-bars"></i> Business Areas ^</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="javascript:void(0);" onclick="onContentShow('customerInfo');">Customer Info</a></li>
+                            <li><a href="javascript:void(0);" onclick="onContentShow('abc');">ABC</a></li>
+                            <li><a href="javascript:void(0);" onclick="onContentShow('xyz');">XYZ</a></li>
+                            <li class="dropdown dropdown-submenu">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown Link 4</a>
+                                <ul class="dropdown-menu">
+                                    <li class="kopie"><a href="#">Dropdown Link 4</a></li>
+                                    <li><a href="#">Dropdown Submenu Link 4.1</a></li>
+                                    <li><a href="#">Dropdown Submenu Link 4.2</a></li>
+                                    <li><a href="#">Dropdown Submenu Link 4.3</a></li>
+                                    <li><a href="#">Dropdown Submenu Link 4.4</a></li>
+
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a> 
+                      
+                        <ul class="dropdown-menu">
+                          <li class="kopie"><a href="#">Dropdown</a></li>
+                            <li><a href="#">Dropdown Link 1</a></li>
+                            <li class="active"><a href="#">Dropdown Link 2</a></li>
+                            <li><a href="#">Dropdown Link 3</a></li>
+                          
+                            <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown Link 4</a>
+        						<ul class="dropdown-menu">
+                                    <li class="kopie"><a href="#">Dropdown Link 4</a></li>
+									<li><a href="#">Dropdown Submenu Link 4.1</a></li>
+									<li><a href="#">Dropdown Submenu Link 4.2</a></li>
+									<li><a href="#">Dropdown Submenu Link 4.3</a></li>
+									<li><a href="#">Dropdown Submenu Link 4.4</a></li>
+                                                                      
+								</ul>
+							</li>
+                          
+                            <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown Link 5</a>
+								<ul class="dropdown-menu">
+                                    <li class="kopie"><a href="#">Dropdown Link 5</a></li>
+									<li><a href="#">Dropdown Submenu Link 5.1</a></li>
+									<li><a href="#">Dropdown Submenu Link 5.2</a></li>
+									<li><a href="#">Dropdown Submenu Link 5.3</a></li>
+									
+									<li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown Submenu Link 5.4</a>
+										<ul class="dropdown-menu">
+                                            <li class="kopie"><a href="#">Dropdown Submenu Link 5.4</a></li>
+											<li><a href="#">Dropdown Submenu Link 5.4.1</a></li>
+											<li><a href="#">Dropdown Submenu Link 5.4.2</a></li>
+											
+											
+										</ul>
+									</li>                           
+								</ul>
+							</li>                                   
+                        </ul>
+                    </li>
+                    <li><a href="#">Service Now</a></li>
+                    <li><a href="#">Help / FAQs</a></li>
                 </ul>
-                @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>

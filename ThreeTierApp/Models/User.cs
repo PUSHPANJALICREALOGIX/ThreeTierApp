@@ -7,6 +7,7 @@ namespace ThreeTierApp.Models
 {
     public class User
     {
+        private int _Id;
         private string _Name;
 
 
@@ -26,6 +27,27 @@ namespace ThreeTierApp.Models
         // Get and set values
 
 
+        public int Id
+
+        {
+
+            get
+
+            {
+
+                return _Id;
+
+            }
+
+            set
+
+            {
+
+                _Id = value;
+
+            }
+
+        }
 
         public string Name
 

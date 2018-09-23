@@ -11,7 +11,7 @@ namespace BussinessObject
         //Declaring User Registration Variables
 
 
-
+        private int _Id;
         private string _Name;
 
 
@@ -30,7 +30,27 @@ namespace BussinessObject
 
         // Get and set values
 
+        public int Id
 
+        {
+
+            get
+
+            {
+
+                return _Id;
+
+            }
+
+            set
+
+            {
+
+                _Id = value;
+
+            }
+
+        }
 
         public string Name
 

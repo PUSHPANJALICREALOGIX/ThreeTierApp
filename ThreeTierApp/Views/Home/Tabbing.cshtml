@@ -1,0 +1,173 @@
+﻿
+@{
+    ViewBag.Title = "Tabbing";
+}
+
+@*<div class="row" style="margin-top:20px;">
+        <div class="col-md-6">
+            <h4>Project Name / Symbol</h4>
+        </div>
+        <div class="col-md-offset-2 col-md-4">
+            <ul class="list-unstyled list-inline">
+                <li><a href="#">News</a></li>
+                <li class="dropdown">
+                    <a data-toggle="dropdown" href="javascript:void(0);"><i class="fa fa-bars"></i> Business Areas ^</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="javascript:void(0);" onclick="onContentShow('customerInfo');">Customer Info</a></li>
+                        <li><a href="javascript:void(0);" onclick="onContentShow('abc');">ABC</a></li>
+                        <li><a href="javascript:void(0);" onclick="onContentShow('xyz');">XYZ</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Service Now</a></li>
+                <li><a href="#">Help / FAQs</a></li>
+            </ul>
+        </div>
+    </div>*@
+
+<div class="row" style="margin-top:20px;">
+    <div class="col-md-12" id="customerInfo" style="border:1px solid #ccc !important;">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <input type="text" class="form-control pull-left" id="Name" autocomplete="off" />
+                        <input type="button" id="btnClick" class="btn btn-default" value="Search" />
+                    </div>
+                </div>
+
+            </div>
+        }
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" class="nav_link" data_id="1" href="#home">Home</a></li>
+            <li><a data-toggle="tab" class="nav_link" data_id="2" href="#menu1">Menu 1</a></li>
+            <li><a data-toggle="tab" class="nav_link" data_id="3" href="#menu2">Menu 2</a></li>
+        </ul>
+
+        <div class="tab-content" style="border:1px solid #ccc !important;">
+            <div id="home" class="tab-pane fade in active">
+                <div class="row">
+                    <div class="col-md-12" id="homedata">
+                        <div class="col-md-9">
+                            <h3>Edward Dashwood</h3>
+                            <div class="col-md-12" style="border:1px solid #ccc !important;">
+                                <label>Name: </label><label id="lblName"></label>
+                            </div>
+                            <div class="col-md-12" style="border:1px solid #ccc !important;">
+                                <label>Address: </label><label id="lblAddress"></label>
+                            </div>
+                            <div class="col-md-12" style="border:1px solid #ccc !important;">
+                                <label>EmailId: </label><label id="lblEmailId"></label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="col-md-12" style="height:200px;background-color:red;">
+                                <h3>Important</h3>
+                                <label>Mobile No.: </label><label id="lblMobileNo"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="menu1" class="tab-pane fade">
+                <h3>Menu 1</h3>
+                <p>Some content in menu 1.</p><br />
+                <div id="ProductsDiv2">
+                </div>
+            </div>
+            <div id="menu2" class="tab-pane fade">
+                <h3>Menu 2</h3>
+                <p>Some content in menu 2.</p><br />
+                <div id="ProductsDiv3">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12" id="abc">
+        <h1>ABC</h1>
+    </div>
+    <div class="col-md-12" id="xyz">
+        <h1>XYZ</h1>
+    </div>
+</div>
+
+@section scripts {
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.dropdown').hover(
+                function () {
+                    $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn();
+                },
+                function () {
+                    $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut();
+                }
+            );
+
+            $('.dropdown-menu').hover(
+                function () {
+                    $(this).stop(true, true);
+                },
+                function () {
+                    $(this).stop(true, true).delay(200).fadeOut();
+                }
+            );
+
+            $("#customerInfo").hide();
+            $("#abc").hide();
+            $("#xyz").hide();
+
+            $("#homedata").hide();
+
+            $("#Name").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "/Home/Index",
+                        type: "POST",
+                        dataType: "json",
+                        data: { Prefix: request.term },
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return { label: item.Name, value: item.Name };
+                            }))
+
+                        }
+                    })
+                },
+                messages: {
+                    noResults: "", results: ""
+                }
+            });
+
+            $("#btnClick").click(function () {
+                $.ajax({
+                    url: "/Home/GetUser",
+                    type: "POST",
+                    dataType: "json",
+                    data: { Prefix: $("#Name").val().split(' - ')[0] },
+                    success: function (data) {
+                        $.map(data, function (item) {
+                            $("#homedata").show();
+                            $("#lblName").text(item.Name);
+                            $("#lblAddress").text(item.address);
+                            $("#lblEmailId").text(item.EmailID);
+                            $("#lblMobileNo").text(item.Mobilenumber);
+                        });
+                    }
+                })
+            });
+        });
+
+        function onContentShow(id) {
+            $("#customerInfo").hide();
+            $("#abc").hide();
+            $("#xyz").hide();
+
+            $("#" + id).show();
+        }
+    </script>
+}

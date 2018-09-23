@@ -88,5 +88,10 @@ namespace ThreeTierApp.Controllers
 
             return Json(lstUser, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult Tabbing()
+        {
+            return View();
+        }
     }
 }
